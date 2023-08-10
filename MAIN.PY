@@ -1,5 +1,5 @@
-print("adiosMUNDO")
-#hola
+print("hola de nuevo MUNDO")
+#adios
 class personaje:
     nombre = "john doe"
     fuerza = 0
