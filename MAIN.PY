@@ -1,5 +1,5 @@
 print("hola de nuevo MUNDO")
-#adios
+#adiosssssssss
 class personaje:
     nombre = "john doe"
     fuerza = 0
