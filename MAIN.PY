@@ -1,37 +1,32 @@
-print("hola de nuevo MUNDO")
-#adiosssssssss
-class personaje:
-    nombre = "john doe"
-    fuerza = 0
-    inteligencia = 0
-    defensa = 0
-    vida = 0
+import os
+from functools import wraps
+from flask import Flask, jsonify, request
 
-    def __init__(self, nombre, fuerza, inteligencia, defensa, vida):
-        self.nombre = nombre
-        self.fuerza = fuerza
-        self.inteligencia = inteligencia
-        self.defensa = defensa
-        self.vida = vida
+app = Flask(__name__)
+#app.config['SECRET_KEY'] = os.environ['API_PKEY']
+app.config['SECRET_KEY']  = "123"
 
-    def atributos(self):
-        print(self.nombre, ":", sep="")
-        print("fuerza: ", self.fuerza)
-        print("Inteligencia: ", self.inteligencia)
-        print("Defensa: ", self.defensa)
-        print("Vida: ", self.vida)
+def token_required(f):
+     @wraps(f)
+     def validate(*args, **kwargs):
+         #export API_PKEY=mytoken
+         #set API_PKEY=mytoken
+         token = request.headers['token']
+         if token == app.config['SECRET_KEY']:
+             return f(*args, **kwargs)
+         else:
+             return jsonify({"message":"token is invalid"}), 403    
+     return validate 
 
-    def subir_nivel(self, fuerza, inteligencia, defensa):
-        self.fuerza = self.fuerza + fuerza
-        self.inteligencia = self.inteligencia + inteligencia
-        self.defensa = self.defensa + defensa
+@app.route('/')
+@token_required
+def index():
+    return jsonify({"Choo Choo": "Welcome class"})
 
 
+"""
+MAIN ...........................................................................
+"""
 if __name__ == '__main__':
-    mi_personaje = personaje("And",10,7,5,100)
-    mi_personaje.atributos()
-    #subo de nivel el personaje
-    print(mi_personaje.defensa)
-    mi_personaje.subir_nivel(3, 5, 8)
-    mi_personaje.atributos()
-
+    #app.run()
+    app.run(debug=True, port=os.getenv("PORT", default=5000 )) 
