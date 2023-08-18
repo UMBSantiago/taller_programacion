@@ -4,13 +4,13 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 #app.config['SECRET_KEY'] = os.environ['API_PKEY']
-app.config['SECRET_KEY']  = "123"
+app.config['SECRET_KEY']  = "mitoken"
 
 def token_required(f):
      @wraps(f)
      def validate(*args, **kwargs):
-         #export API_PKEY=mytoken
-         #set API_PKEY=mytoken
+         #export API_PKEY=mytoken MAC/LINUX
+         #set API_PKEY=mytoken WINDOWS
          token = request.headers['token']
          if token == app.config['SECRET_KEY']:
              return f(*args, **kwargs)
