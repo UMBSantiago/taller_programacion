@@ -19,9 +19,10 @@ def estudiante_insert(codigo = 0, nombre = ""):
         port=7171
     )
     mycursor = mydb.cursor()
-    sql = "INSERT INTO student (code, name) VALUES (%s, %s)"
-    val = (codigo, nombre)
-    mycursor.execute(sql,val)
+    #sql = "INSERT INTO student (code, name) VALUES (%s, %s)"
+    sql = "UPDATE student set nota=50 where code=1076647284"
+    #val = (codigo, nombre)
+    mycursor.execute(sql)
     mydb.commit()
     return True
 
