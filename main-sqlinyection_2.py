@@ -7,8 +7,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-
-def products_select(category = ""):
+def products_select_sp(category = ""):
     mydb = mysql.connector.connect(
         host="containers-us-west-101.railway.app",
         user="root",
@@ -16,13 +15,13 @@ def products_select(category = ""):
         database="railway",
         port=7171
     )
-
-
-    mycursor = mydb.cursor()
-    sql = 'select * from products where category = "'+category+'" and released = 1'
-    mycursor.execute(sql)
-    myresult = mycursor.fetchall()
-    return myresult
+    args = (category,)
+    cursor = mydb.cursor()
+    cursor.callproc('sp_products_by_category', args)
+    for result in cursor.stored_results():
+        product = result.fetchall()
+    json_products = json.dumps(product)
+    return json_products
 
 @app.route('/')
 def index():
@@ -37,7 +36,7 @@ def index():
 def products_get():
     args = request.args
     s_category = args.get("category")
-    respuesta = products_select(s_category)
+    respuesta = products_select_sp(s_category)
     return jsonify({"msg":"success","products":respuesta})
 
 
