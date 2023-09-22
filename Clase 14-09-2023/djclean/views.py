@@ -7,3 +7,6 @@ def inicio(request):
 
 def nosotros(request):
     return render(request,"pages/xedin.html",{})
+
+def resumen(request):
+    return render(request,"pages/resumen.html",{})
