@@ -5,7 +5,7 @@
 {% block title %}Proyectos{% endblock %}
 
 {% block content %}
- 
+
 <body class="d-flex flex-column h-100 bg-light">
     <main class="flex-shrink-0">
         <section class="py-5">
@@ -15,9 +15,9 @@
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-11 col-xl-9 col-xxl-8">
-                        
-                    {% for p in proyectos %}
-                    
+
+                        {% for p in proyectos %}
+
                         <!-- Project Card -->
                         <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
                             <div class="card-body p-0">
@@ -27,13 +27,16 @@
                                         <h2 class="fw-bolder">{{p.nombre}}</h2>
                                         <p>{{p.descripcion}}</p>
                                     </div>
-                                    <img class="img-fluid" src="{% static image_paths.forloop.counter0 %}" alt="...">
-                                    >
+                                    {% if p.imageproj%}
+                                    <img class="img-fluid" src="{{p.imageproj.url}}" alt="..." />
+                                    {%else%}
+                                    <img class="img-fluid" alt="{{p.nombre}}" />
+                                    {%endif%}
                                 </div>
                             </div>
                         </div>
 
-                    {% endfor %}
+                        {% endfor %}
 
                     </div>
                 </div>
@@ -52,9 +55,3 @@
 </body>
 
 {% endblock %}
-
-
-
-
-
-

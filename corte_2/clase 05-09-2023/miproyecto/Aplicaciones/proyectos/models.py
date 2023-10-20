@@ -7,6 +7,8 @@ class Proyecto(models.Model):
     nombre = models.CharField(max_length=90)
     descripcion = models.CharField( max_length=2000 )
     publish = models.BooleanField(default=True)
+    date = models.DateTimeField(auto_now=True)
+    imageproj = models.FileField(upload_to='proyectos/',null=True,blank=True)
 
     def __str__(self) -> str:
         texto = "[{1}] {0}"
@@ -16,5 +18,3 @@ class Proyecto(models.Model):
             tp = "Off"
         return texto.format(self.nombre,tp)
 
-class MyModel(models.Model):
-    image = models.ImageField(upload_to='images/')
