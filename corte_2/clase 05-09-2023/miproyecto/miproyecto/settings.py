@@ -56,6 +56,13 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'miproyecto.urls'
 SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'santiagocabrasierra@gmail.com'
+EMAIL_HOST_PASSWORD = 'rbzg ofnt zsea sbhd'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

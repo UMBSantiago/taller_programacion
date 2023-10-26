@@ -14,16 +14,16 @@ def contacto(request):
         obj_contact = Contacto(name=tname,email=temail,phone=tphone,message=tmessage)
         obj_contact.save()
         #return HttpResponse("EL registro fue ingresado")
-        #email(obj_contact)
+        email(obj_contact)
         return render(request,"pages/gracias.html",)
 
     return render(request,"pages/contacto.html",)
 
 def email(email):
-    subject = 'Thank you for contact me'
-    message = ' it  means a world to us '
+    subject = 'Gracias por contactarnos'
+    message = ' Este es un correo de verificación '
     email_from = settings.EMAIL_HOST_USER
-    recipient_list = ['misael.andrey@gmail.com',]
+    recipient_list = [email.email,]
     send_mail( subject, message, email_from, recipient_list )
     return True
     
