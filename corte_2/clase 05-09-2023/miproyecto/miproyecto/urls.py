@@ -1,5 +1,5 @@
 """
-URL configuration for miproyecto project.
+URL configuration for djclear project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -16,18 +16,31 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import inicio, resumen 
+from django.contrib.auth.decorators import login_required
+
+from .views import inicio, resumen, login
+
 from django.urls import re_path
 from django.views.static import serve
+
 from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("", inicio),
-    path('inicio/', inicio),
-    path('resumen/', resumen),
-    path("",include("Aplicaciones.proyectos.urls")),
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    path("",include("Aplicaciones.contacto.urls"))
-
+    path("admin/", admin.site.urls),
+    path("", inicio, name="inicio"),
+    path("inicio/", inicio, name="inicio"),
+    #path("resumen/", login_required(resumen), name="resumen"),  FORMA 1
+    path("resumen/", resumen, name="resumen"),  #FORMA 2
+    path("accounts/", include('django.contrib.auth.urls')),  
+    path("", include('Aplicaciones.proyectos.urls')),  
+    path("", include('Aplicaciones.contacto.urls')), 
+    path("", include('Aplicaciones.ubicaciones.urls')),     
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})
 ]
+
+
+
+
+#if settings.DEBUG:
+#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

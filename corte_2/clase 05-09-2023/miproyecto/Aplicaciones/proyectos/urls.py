@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("proyectos/",views.proyectos, name="Proyectos"),
+    path("proyectos/",views.proyectos, name="proyectos"),
 ]
 
 if settings.DEBUG:
