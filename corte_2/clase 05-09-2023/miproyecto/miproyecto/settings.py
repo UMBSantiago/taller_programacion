@@ -33,15 +33,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'Aplicaciones.proyectos',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "coreapi",
+    "Aplicaciones.proyectos",
     "Aplicaciones.contacto",
     "Aplicaciones.ubicaciones",
+    "Aplicaciones.directorio",
+    "Aplicaciones.foro",
 ]
 
 MIDDLEWARE = [
@@ -141,3 +145,6 @@ LOGOUT_REDIRECT_URL = 'inicio'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+}
